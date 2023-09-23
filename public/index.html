@@ -1,13 +1,448 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang trại thông minh - Thảo Anh</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
 </head>
 
-<body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+<body style="background-color: #D3EFEC;" class="color-all">
+  <div class="container px-4">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom bcc-green1 rounded">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4 bcc-green1 fw-bolder fs-2">Thiết bị quản lý trang trại thông minh</span>
+      </a>
+    </header>
+
+    <div class="container px-4 mt-5 bcc-purle2" id="hanging-icons">
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3 ">
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Chọn chế độ</h3>
+            <p>Sử dụng nút chế độ thủ công nếu muốn tự mình thay đổi trạng thái của động cơ và bơm</p>
+            <div class="form-check form-switch">
+              <button type="button" id="mode" class="btn btn-success">Đổi</button>
+              <label class="form-check-label" for="mode" id="modeLabel">Tự động</label>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Lựa chọn thiết bị điều khiển</h3>
+            <p>Chỉ có thể điều khiển được nếu là chế độ thủ công. </p>
+            <div class="row ">
+              <button id="role1" type="button" class="btn btn-primary col m-2" disabled>1: Bật</button>
+              <button id="role2" type="button" class="btn btn-secondary col m-2" disabled>2: Tắt</button>
+              <button id="role3" type="button" class="btn btn-secondary col m-2" disabled>3: Tắt</button>
+              <button id="role4" type="button" class="btn btn-secondary col m-2" disabled>4: Tắt</button>
+            </div>
+            <div>
+              <button type="button" id="changRole" class="btn btn-success" disabled>Đổi</button>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <div>
+            <h3 class="fs-2 text-body-emphasis">Điều chỉnh bơm/van</h3>
+            <p>Chỉ có thể điều khiển được nếu là chế độ thủ công</p>
+            <div class="form-check form-switch">
+              <button type="button" id="changeState" class="btn btn-success" disabled>Đổi trạng thái</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-5 mt-4">
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">Nhiệt độ không khí </div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="temp" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            20 độ C
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="tempChart"> </canvas>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">Độ ẩm không khí</div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="hum" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            90 %
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="humChart"> </canvas>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">CO2</div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="co2" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            900 ppm
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="co2Chart"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="row g-5 mt-4">
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">Ánh sáng</div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="light" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            6.0
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="lightChart"> </canvas>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">Độ ẩm đất</div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="soilHum" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            60 %
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="soilHumChart"> </canvas>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3 bcc-green3 rounded">
+          <div class="p-2 bcc-purle2 fw-bold fs-3">Nồng độ bụi</div>
+          <div class="fw-bold mt-5">Hiện tại :</div>
+          <div id="bui" class="p-5 mb-5 fw-semibold fs-1 text-center border-bottom border-danger ">
+            10 ppm
+          </div>
+          <div class="fw-bold mb-4">Biểu đồ: </div>
+          <canvas class="bg-light my-3" id="buiChart"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="d-grid col-3 mx-auto my-3 align-items-end">
+      <button id="update" class="btn btn-info">Làm mới</button>
+    </div>
+  </div>
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+  <!-- socket -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const temp = document.getElementById("temp");
+    const hum = document.getElementById("hum");
+    const co2 = document.getElementById("co2");
+    const light = document.getElementById("light");
+    const soilHum = document.getElementById("soilHum");
+    const bui = document.getElementById("bui");
+    const update = document.getElementById("update");
+
+    const mode = document.getElementById("mode");
+    const modeLabel = document.getElementById("modeLabel");
+    const changeRole = document.getElementById("changRole");
+    const role1 = document.getElementById("role1");
+    const role2 = document.getElementById("role2");
+    const role3 = document.getElementById("role3");
+    const role4 = document.getElementById("role4");
+    const changeState = document.getElementById("changeState");
+    let nutnhan = [changRole, changeState]
+    let role = [role1, role2, role3, role4]
+    let modeState = false;
+    let roleState = 0;
+    let newState = true;
+
+
+    var socket = io();
+    socket.on('connect', function () {
+      console.log('Connected!');
+    });
+
+    update.addEventListener("click", () => {
+      socket.emit("UPDATE", "update");
+    });
+
+    function thucong() {
+      modeLabel.innerText = "Thủ công"
+      nutnhan.forEach(nut => {
+        nut.disabled = false
+      })
+    }
+
+    function tudong() {
+      modeLabel.innerText = "Tự động"
+      nutnhan.forEach(nut => {
+        nut.disabled = true
+      })
+    }
+
+    mode.addEventListener("click", (e) => {
+      modeState = !modeState;
+      if (modeState) {
+        thucong();
+        socket.emit("changeMode", "thucong")
+      } else {
+        tudong();
+        socket.emit("changeMode", "tudong")
+      }
+    });
+
+    changRole.addEventListener("click", (e) => {
+      roleState = (roleState + 1) % 4;
+      role.forEach((r, index) => {
+        if (index == roleState) {
+          r.classList.remove("btn-secondary");
+          r.classList.add("btn-primary");
+        } else {
+          r.classList.remove("btn-primary");
+          r.classList.add("btn-secondary");
+        }
+      });
+    })
+
+    changeState.addEventListener("click", (e) => {
+      socket.emit("changeState", newState);
+      newState = !newState;
+      if (role[roleState].innerText == `${roleState + 1}: Bật`)
+        role[roleState].innerText = `${roleState + 1}: Tắt`
+      else role[roleState].innerText = `${roleState + 1}: Bật`
+    })
+
+    socket.on("changeMode", (data) => {
+      if (data == "thucong") {
+        mode.checked = true;
+        thucong();
+      }
+      else {
+        mode.checked = false;
+        tudong();
+      }
+    })
+
+    socket.on("changeState", (data) => {
+      if (role[data].innerText == `${data + 1}: Bật`)
+        role[data].innerText = `${data + 1}: Tắt`
+      else role[data].innerText = `${data + 1}: Bật`
+    })
+
+    socket.on("message", (data) => {
+      console.log(data);
+      temp.innerText = `${data.TEMP} độ C`;
+      hum.innerText = `${data.HUM} %`;
+      co2.innerText = `${data.CO2} ppm`;
+      light.innerText = `${data.ANHSANG} lux`;
+      soilHum.innerText = `${data.SoilHum} %`;
+      bui.innerText = `${data.BUI} ppm`;
+      v.innerText = `${data.thetich} Lít`;
+
+      if (data.mode == "true") {
+        mode.click();
+        if (modeLabel.innerText == "Thủ công") thucong();
+        else tudong();
+      }
+
+      data.RL1 == "true" ? role1.innerText = "1: Bật" : role1.innerText = "1: Tắt";
+      data.RL2 == "true" ? role2.innerText = "2: Bật" : role2.innerText = "2: Tắt";
+      data.RL3 == "true" ? role3.innerText = "3: Bật" : role3.innerText = "3: Tắt";
+      data.RL4 == "true" ? role4.innerText = "4: Bật" : role4.innerText = "4: Tắt";
+
+      addData(tempChart, data.TEMP);
+      addData(humChart, data.HUM);
+      addData(co2Chart, data.CO2);
+      addData(lightChart, data.ANHSANG);
+      addData(buiChart, data.BUI);
+      addData(soilHum, data.SoilHum);
+      if (tempChart.data.datasets[0].data.length > 30) removeData(tempChart);
+      if (humChart.data.datasets[0].data.length > 30) removeData(humChart);
+      if (co2Chart.data.datasets[0].data.length > 30) removeData(co2Chart);
+      if (lightChart.data.datasets[0].data.length > 30)
+        removeData(lightChart);
+      if (soilHum.data.datasets[0].data.length > 30) removeData(soilHum);
+    });
+  </script>
+
+  <!-- chart -->
+  <script>
+    const configTempCharts = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "Temperature (Celsius)",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+    const configHumChart = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "Humidity (%)",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+    const configCo2Charts = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "CO2 rate (ppm)",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+    const configlightChart = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "Ánh sáng (lux)",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+    const configsoilHum = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "Độ ẩm đất (%)",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+    const configBuiChart = {
+      type: "line",
+      data: {
+        labels: [
+          60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28,
+          26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0,
+        ],
+        datasets: [
+          {
+            label: "Bụi (ppm) ",
+            data: [],
+            borderColor: ["rgba(255, 100, 100, 1)"],
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    };
+
+    const tempChart = new Chart(
+      document.getElementById("tempChart").getContext("2d"),
+      configTempCharts
+    );
+    const humChart = new Chart(
+      document.getElementById("humChart").getContext("2d"),
+      configHumChart
+    );
+    const co2Chart = new Chart(
+      document.getElementById("co2Chart").getContext("2d"),
+      configCo2Charts
+    );
+    const lightChart = new Chart(
+      document.getElementById("lightChart").getContext("2d"),
+      configlightChart
+    );
+    const soilHumChart = new Chart(
+      document.getElementById("soilHumChart").getContext("2d"),
+      configsoilHum
+    );
+
+    const buiChart = new Chart(
+      document.getElementById("buiChart").getContext("2d"),
+      configBuiChart
+    );
+  </script>
+  <!-- update chart -->
+  <script>
+    function addData(chart, data) {
+      chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+      });
+      chart.update();
+    }
+
+    function removeData(chart) {
+      chart.data.datasets.forEach((dataset) => {
+        dataset.data.shift();
+      });
+      chart.update();
+    }
+  </script>
 </body>
 
 </html>
