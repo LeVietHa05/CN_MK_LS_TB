@@ -33,7 +33,7 @@
           <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
             <div class="card-header t-c-white">Chỉ số CO</div>
             <div class="card-body scale">
-              <h5 class="card-title t-c-white" id="co2">20</h5>
+              <h5 class="card-title t-c-white" id="co">20</h5>
               <p class="card-text t-c-white">Chỉ số CO trong mức an toàn</p>
               </p>
             </div>
@@ -43,7 +43,7 @@
           <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
             <div class="card-header t-c-white">Chỉ số NH4</div>
             <div class="card-body ">
-              <h5 class="card-title t-c-white" id="co2">20</h5>
+              <h5 class="card-title t-c-white" id="nh4">20</h5>
               <p class="card-text t-c-white">Chỉ số NH4 trong mức an toàn</p>
               </p>
             </div>
@@ -53,7 +53,7 @@
           <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
             <div class="card-header t-c-white">Chỉ số Bụi</div>
             <div class="card-body ">
-              <h5 class="card-title t-c-white" id="co2">20</h5>
+              <h5 class="card-title t-c-white" id="dust">20</h5>
               <p class="card-text t-c-white">Chỉ số Bụi trong mức an toàn</p>
               </p>
             </div>
@@ -63,7 +63,7 @@
           <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
             <div class="card-header t-c-white">Khoảng cách di chuyển được</div>
             <div class="card-body ">
-              <h5 class="card-title t-c-white" id="co2">2000</h5>
+              <h5 class="card-title t-c-white" id="khoachcah">2000</h5>
               <p class="card-text t-c-white">m</p>
             </div>
           </div>
@@ -93,7 +93,7 @@
     });
     socket.on('message', (data) => {
       console.log(data);
-      const chartData = [data.co2, data.co, data.nh4, data.dust]
+      let chartData = [data.co2, data.co, data.nh4, data.dust]
       chartData = chartData.map((item) => {
         return Math.round(item * 100) / 100;
       });
@@ -101,6 +101,14 @@
       if (myStackedBarChart.data.datasets[0].data.length > 30) {
         removeData(myStackedBarChart);
       }
+
+      document.getElementById('co2').innerHTML = Math.round(data.co2 * 100) / 100;
+      document.getElementById('co').innerHTML = Math.round(data.co * 100) / 100;
+      document.getElementById('nh4').innerHTML = Math.round(data.nh4 * 100) / 100;
+      document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
+      document.getElementById('khoachcah').innerHTML = Math.round(data.dust * 100) / 100;
+
+
     });
 
   </script>
