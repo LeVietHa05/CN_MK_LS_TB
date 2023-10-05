@@ -91,6 +91,14 @@
     socket.on('connect', function () {
       console.log('Connected!');
     });
+    socket.on('message', (data) => {
+      console.log(data);
+      const chartData = [data.co2, data.co, data.nh4, data.dust]
+      addData(myStackedBarChart, chartData);
+      if (myStackedBarChart.data.datasets[0].data.length > 30) {
+        removeData(myStackedBarChart);
+      }
+    });
 
   </script>
 
