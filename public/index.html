@@ -94,6 +94,9 @@
     socket.on('message', (data) => {
       console.log(data);
       const chartData = [data.co2, data.co, data.nh4, data.dust]
+      chartData = chartData.map((item) => {
+        return Math.round(item * 100) / 100;
+      });
       addData(myStackedBarChart, chartData);
       if (myStackedBarChart.data.datasets[0].data.length > 30) {
         removeData(myStackedBarChart);
