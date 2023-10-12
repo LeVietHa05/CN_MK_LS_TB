@@ -108,6 +108,46 @@
       document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
       document.getElementById('khoachcah').innerHTML = Math.round(data.dust * 100) / 100;
 
+      if (Math.round(data.co2 * 100) / 100 > 4.0) {
+        document.getElementById('co2').closest('.card').classList.remove('bg-success');
+        document.getElementById('co2').closest('.card').classList.add('bg-danger');
+        document.getElementById('co2').nextElementSibling.innerHTML = 'Chỉ số CO2 trong mức nguy hiểm';
+      }
+      else {
+        document.getElementById('co2').closest('.card').classList.remove('bg-danger');
+        document.getElementById('co2').closest('.card').classList.add('bg-success');
+        document.getElementById('co2').nextElementSibling.innerHTML = 'Chỉ số CO2 trong mức an toàn';
+      }
+      if (Math.round(data.co * 100) / 100 > 4.0) {
+        document.getElementById('co').closest('.card').classList.remove('bg-success');
+        document.getElementById('co').closest('.card').classList.add('bg-danger');
+        document.getElementById('co').nextElementSibling.innerHTML = 'Chỉ số CO trong mức nguy hiểm';
+      }
+      else {
+        document.getElementById('co').closest('.card').classList.remove('bg-danger');
+        document.getElementById('co').closest('.card').classList.add('bg-success');
+        document.getElementById('co').nextElementSibling.innerHTML = 'Chỉ số CO trong mức an toàn';
+      }
+      if (Math.round(data.nh4 * 100) / 100 > 4.5) {
+        document.getElementById('nh4').closest('.card').classList.remove('bg-success');
+        document.getElementById('nh4').closest('.card').classList.add('bg-danger');
+        document.getElementById('nh4').nextElementSibling.innerHTML = 'Chỉ số NH4 trong mức nguy hiểm';
+      }
+      else {
+        document.getElementById('nh4').closest('.card').classList.remove('bg-danger');
+        document.getElementById('nh4').closest('.card').classList.add('bg-success');
+        document.getElementById('nh4').nextElementSibling.innerHTML = 'Chỉ số NH4 trong mức an toàn';
+      }
+      if (Math.round(data.dust * 100) / 100 > 4.0) {
+        document.getElementById('dust').closest('.card').classList.remove('bg-success');
+        document.getElementById('dust').closest('.card').classList.add('bg-danger');
+        document.getElementById('dust').nextElementSibling.innerHTML = 'Chỉ số Bụi trong mức nguy hiểm';
+      }
+      else {
+        document.getElementById('dust').closest('.card').classList.remove('bg-danger');
+        document.getElementById('dust').closest('.card').classList.add('bg-success');
+        document.getElementById('dust').nextElementSibling.innerHTML = 'Chỉ số Bụi trong mức an toàn';
+      }
 
     });
 
