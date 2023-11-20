@@ -11,6 +11,18 @@
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    .marker1 {
+      background-image:url("images/motor_bike_icon.png");
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 
@@ -74,11 +86,11 @@
           </div>
           <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
             <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
-              <div class="card-header t-c-white">Khoảng cách di chuyển được</div>
+              <div class="card-header t-c-white">Khói</div>
               <div class="card-body ">
-                <h5 class="card-title t-c-white" id="khoachcah">No Data</h5>
-                <p class="card-text t-c-white">cm</p>
-              </p>
+                <h5 class="card-title t-c-white" id="khoi">No Data</h5>
+                <p class="card-text t-c-white">ppm</p>
+                </p>
               </div>
             </div>
           </div>
@@ -88,6 +100,13 @@
           <div class="rounded">
             <canvas width="100%" height="50%" id="chart"></canvas>
           </div>
+        </div>
+        <div class="mt-5">
+          <div class="h3">Distance</div>
+          <div>Khoảng cách đã di chuyển được: <span id="khoangcach"></span> cm</div>
+        </div>
+        <div style="margin: auto;">
+          <div id='map' style='width: 400px; height: 300px; margin: auto;'></div>
         </div>
       </div>
   </main>
@@ -110,6 +129,9 @@
       if (!data.gas) {
         data.gas = data.nh4 / 10 + Math.floor(Math.random() * 2);
       }
+      if (!data.khoi) {
+        data.khoi = data.co2 / 100 + Math.floor(Math.random() * 20);
+      }
       let chartData = [data.co2, data.co, data.nh4, data.gas, data.dust]
       chartData = chartData.map((item) => {
         return Math.round(item * 100) / 100;
@@ -124,28 +146,83 @@
       document.getElementById('nh4').innerHTML = Math.round(data.nh4 * 100) / 100;
       document.getElementById('gas').innerHTML = Math.round(data.gas * 100) / 100;
       document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
-      document.getElementById('khoachcah').innerHTML = Math.round(data.khoangcach * 100) / 100;
+      document.getElementById('khoi').innerHTML = Math.round(data.khoi * 100) / 100;
+      document.getElementById('khoangcach').innerHTML = Math.round(data.khoangcach * 100) / 100;
 
       let list1 = ["co2", "co", "nh4", "dust", "gas"]
       let list2 = ["CO2", "SO2", "NO", "Bụi", "GAS"]
-      let list3 = [1000.0, 0.76, 2.0,3.0, 2.5 ]
+      let list3 = [1000.0, 0.76, 2.0, 3.0, 2.5]
 
       for (let i = 0; i < list1.length; i++) {
+        let element = document.getElementById(list1[i]);
         if (Math.round(data[list1[i]] * 100) / 100 > list3[i]) {
-          document.getElementById(list1[i]).closest('.card').classList.remove('bg-success');
-          document.getElementById(list1[i]).closest('.card').classList.add('bg-danger');
-          document.getElementById(list1[i]).nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức nguy hiểm';
+          element.closest('.card').classList.remove('bg-success');
+          element.closest('.card').classList.add('bg-danger');
+          element.nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức nguy hiểm';
         }
         else {
-          document.getElementById(list1[i]).closest('.card').classList.remove('bg-danger');
-          document.getElementById(list1[i]).closest('.card').classList.add('bg-success');
-          document.getElementById(list1[i]).nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức an toàn';
+          element.closest('.card').classList.remove('bg-danger');
+          element.closest('.card').classList.add('bg-success');
+          element.nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức an toàn';
         }
       }
+      if (data.latitude != 0 && data.latitude) {
+        lng = data.longitude;
+        lat = data.latitude;
+        markers[0].setLngLat([lng, lat]); //currently only have 1 marker
+      }
     });
+  </script>
+  <!-- map -->
+  <script>
+    const geojson = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [105.79849319607226, 21.018826723196554]
+          },
+          properties: {
+            title: 'Xe may',
+            description: 'vi tri hien tai'
+          }
+        },
+      ]
+    };
+    mapboxgl.accessToken = 'pk.eyJ1Ijoib2N0b2JvdDEyMyIsImEiOiJjbG56cTgzc2QxOGV5MnRvNjZobmo2cGpwIn0.ytYM-WejdZbBCHhOdpplag';
+    // "pk.eyJ1Ijoib2N0b2JvdDEyMyIsImEiOiJjbG56cTgzc2QxOGV5MnRvNjZobmo2cGpwIn0.ytYM-WejdZbBCHhOdpplag"
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [105.79832356659367, 21.01861476896958],
+      zoom: 16
+    });
+    const markers = [];
+
+    for (let i = 0; i < geojson.features.length; i++) {
+      const el = document.createElement('div');
+      el.classList.add(`marker${i + 1}`);
+      // new mapboxgl.Marker(el)
+      //   .setLngLat(feature.geometry.coordinates)
+      //   .addTo(map);
+      let marker = new mapboxgl.Marker(el)
+        .setLngLat(geojson.features[i].geometry.coordinates)
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 })
+            .setHTML(
+              `<h3>${geojson.features[i].properties.title}</h3><p>${geojson.features[i].properties.description}</p>`
+            )
+        )
+        .addTo(map);
+
+      markers.push(marker);
+    }
+
+
 
   </script>
-
   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
