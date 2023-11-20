@@ -24,4 +24,11 @@ io.on("connection", (socket) => {
     });
 })
 
+{
+    co2: Math.floor(Math.random() * 1000),
+        nh4: (Math.random() * 3),
+        co: (Math.random() * 1),
+        dust: (Math.random() * 5),
+}
+
 module.exports = socketapi;

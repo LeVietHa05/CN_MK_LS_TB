@@ -18,64 +18,78 @@
   <main class="container bcc-gray" style="height: 100%;">
     <div class="h1">Home</div>
     <div class="container px-4 " style="height: 100%;">
-      <div class="row gx-5">
-        <div class="col ms-2 shadow bg-body rounded scale ">
-          <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
-            <div class="card-header t-c-white">Chỉ số CO2 (ppm)</div>
-            <div class="card-body scale">
-              <h5 class="card-title t-c-white" id="co2">No Data</h5>
-              <p class="card-text t-c-white">No assessment</p>
-              </p>
+      <div>
+        <div class="row gx-5 justify-content-around">
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Chỉ số CO2 (ppm)</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="co2">No Data</h5>
+                <p class="card-text t-c-white">No assessment</p>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Chỉ số SO2 (ppm)</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="co">No Data</h5>
+                <p class="card-text t-c-white">No assessment</p>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Chỉ số NO (ppm)</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="nh4">No Data</h5>
+                <p class="card-text t-c-white">No assessment</p>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col ms-2 shadow bg-body rounded scale">
-          <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
-            <div class="card-header t-c-white">Chỉ số SO2 (ppm)</div>
-            <div class="card-body scale">
-              <h5 class="card-title t-c-white" id="co">No Data</h5>
-              <p class="card-text t-c-white">No assessment</p>
+        <div class="row gx-5 justify-content-around mt-2">
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Chỉ số GAS (%)</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="gas">No Data</h5>
+                <p class="card-text t-c-white">No assessment</p>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Chỉ số Bụi (mg/l)</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="dust">No Data</h5>
+                <p class="card-text t-c-white">No assessment</p>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
+            <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
+              <div class="card-header t-c-white">Khoảng cách di chuyển được</div>
+              <div class="card-body ">
+                <h5 class="card-title t-c-white" id="khoachcah">No Data</h5>
+                <p class="card-text t-c-white">cm</p>
               </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col ms-2 shadow bg-body rounded scale">
-          <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
-            <div class="card-header t-c-white">Chỉ số GAS (%)</div>
-            <div class="card-body ">
-              <h5 class="card-title t-c-white" id="nh4">No Data</h5>
-              <p class="card-text t-c-white">No assessment</p>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col ms-2 shadow bg-body rounded scale">
-          <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
-            <div class="card-header t-c-white">Chỉ số Bụi (mg/l)</div>
-            <div class="card-body ">
-              <h5 class="card-title t-c-white" id="dust">No Data</h5>
-              <p class="card-text t-c-white">No assessment</p>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col ms-2 shadow bg-body rounded scale">
-          <div class="card text-dark bg-success mb-3 " style="max-width: 18rem;">
-            <div class="card-header t-c-white">Khoảng cách di chuyển được</div>
-            <div class="card-body ">
-              <h5 class="card-title t-c-white" id="khoachcah">No Data</h5>
-              <p class="card-text t-c-white">m</p>
-            </div>
+        <div class="mt-5">
+          <div class="h3">Chart</div>
+          <div class="rounded">
+            <canvas width="100%" height="50%" id="chart"></canvas>
           </div>
         </div>
       </div>
-      <div class="mt-5">
-        <div class="h3">Chart</div>
-        <div class="rounded">
-          <canvas width="100%" height="50%" id="chart"></canvas>
-        </div>
-      </div>
-    </div>
   </main>
 
 
@@ -93,7 +107,10 @@
     });
     socket.on('message', (data) => {
       console.log(data);
-      let chartData = [data.co2, data.co, data.nh4, data.dust]
+      if (!data.gas) {
+        data.gas = data.nh4 / 10 + Math.floor(Math.random() * 2);
+      }
+      let chartData = [data.co2, data.co, data.nh4, data.gas, data.dust]
       chartData = chartData.map((item) => {
         return Math.round(item * 100) / 100;
       });
@@ -105,50 +122,26 @@
       document.getElementById('co2').innerHTML = Math.round(data.co2 * 100) / 100;
       document.getElementById('co').innerHTML = Math.round(data.co * 100) / 100;
       document.getElementById('nh4').innerHTML = Math.round(data.nh4 * 100) / 100;
+      document.getElementById('gas').innerHTML = Math.round(data.gas * 100) / 100;
       document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
       document.getElementById('khoachcah').innerHTML = Math.round(data.khoangcach * 100) / 100;
 
-      if (Math.round(data.co2 * 100) / 100 > 1000.0) {
-        document.getElementById('co2').closest('.card').classList.remove('bg-success');
-        document.getElementById('co2').closest('.card').classList.add('bg-danger');
-        document.getElementById('co2').nextElementSibling.innerHTML = 'Chỉ số CO2 trong mức nguy hiểm';
-      }
-      else {
-        document.getElementById('co2').closest('.card').classList.remove('bg-danger');
-        document.getElementById('co2').closest('.card').classList.add('bg-success');
-        document.getElementById('co2').nextElementSibling.innerHTML = 'Chỉ số CO2 trong mức an toàn';
-      }
-      if (Math.round(data.co * 100) / 100 > 0.76) {
-        document.getElementById('co').closest('.card').classList.remove('bg-success');
-        document.getElementById('co').closest('.card').classList.add('bg-danger');
-        document.getElementById('co').nextElementSibling.innerHTML = 'Chỉ số SO2 trong mức nguy hiểm';
-      }
-      else {
-        document.getElementById('co').closest('.card').classList.remove('bg-danger');
-        document.getElementById('co').closest('.card').classList.add('bg-success');
-        document.getElementById('co').nextElementSibling.innerHTML = 'Chỉ số SO2 trong mức an toàn';
-      }
-      if (Math.round(data.nh4 * 100) / 100 > 1.5) {
-        document.getElementById('nh4').closest('.card').classList.remove('bg-success');
-        document.getElementById('nh4').closest('.card').classList.add('bg-danger');
-        document.getElementById('nh4').nextElementSibling.innerHTML = 'Chỉ số NO trong mức nguy hiểm';
-      }
-      else {
-        document.getElementById('nh4').closest('.card').classList.remove('bg-danger');
-        document.getElementById('nh4').closest('.card').classList.add('bg-success');
-        document.getElementById('nh4').nextElementSibling.innerHTML = 'Chỉ số NO trong mức an toàn';
-      }
-      if (Math.round(data.dust * 100) / 100 > 3.0) {
-        document.getElementById('dust').closest('.card').classList.remove('bg-success');
-        document.getElementById('dust').closest('.card').classList.add('bg-danger');
-        document.getElementById('dust').nextElementSibling.innerHTML = 'Chỉ số Bụi trong mức nguy hiểm';
-      }
-      else {
-        document.getElementById('dust').closest('.card').classList.remove('bg-danger');
-        document.getElementById('dust').closest('.card').classList.add('bg-success');
-        document.getElementById('dust').nextElementSibling.innerHTML = 'Chỉ số Bụi trong mức an toàn';
-      }
+      let list1 = ["co2", "co", "nh4", "dust", "gas"]
+      let list2 = ["CO2", "SO2", "NO", "Bụi", "GAS"]
+      let list3 = [1000.0, 0.76, 2.0,3.0, 2.5 ]
 
+      for (let i = 0; i < list1.length; i++) {
+        if (Math.round(data[list1[i]] * 100) / 100 > list3[i]) {
+          document.getElementById(list1[i]).closest('.card').classList.remove('bg-success');
+          document.getElementById(list1[i]).closest('.card').classList.add('bg-danger');
+          document.getElementById(list1[i]).nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức nguy hiểm';
+        }
+        else {
+          document.getElementById(list1[i]).closest('.card').classList.remove('bg-danger');
+          document.getElementById(list1[i]).closest('.card').classList.add('bg-success');
+          document.getElementById(list1[i]).nextElementSibling.innerHTML = 'Chỉ số ' + list2[i] + ' trong mức an toàn';
+        }
+      }
     });
 
   </script>
@@ -185,6 +178,13 @@
           label: 'NO',
           backgroundColor: '#bbfad5',
           borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 1,
+          data: [],
+        },
+        {
+          label: 'GAS',
+          backgroundColor: '#ffcc99',
+          borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
           data: [],
         },
