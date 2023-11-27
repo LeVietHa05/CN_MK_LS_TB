@@ -54,7 +54,7 @@
           </div>
           <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
             <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
-              <div class="card-header t-c-white">Chỉ số NO (ppm)</div>
+              <div class="card-header t-c-white">Chỉ số GAS (%)</div>
               <div class="card-body ">
                 <h5 class="card-title t-c-white" id="nh4">No Data</h5>
                 <p class="card-text t-c-white">No assessment</p>
@@ -66,7 +66,7 @@
         <div class="row gx-5 justify-content-around mt-2">
           <div class="col  shadow bg-body rounded scale  p-2" style="margin: auto;">
             <div class="card text-dark bg-success" style="max-width: 18rem; margin: auto;">
-              <div class="card-header t-c-white">Chỉ số GAS (%)</div>
+              <div class="card-header t-c-white">Chỉ số NO (ppm)</div>
               <div class="card-body ">
                 <h5 class="card-title t-c-white" id="gas">No Data</h5>
                 <p class="card-text t-c-white">No assessment</p>
@@ -143,8 +143,8 @@
 
       document.getElementById('co2').innerHTML = Math.round(data.co2 * 100) / 100;
       document.getElementById('co').innerHTML = Math.round(data.co * 100) / 100;
-      document.getElementById('nh4').innerHTML = Math.round(data.gas * 100) / 100;
-      document.getElementById('gas').innerHTML = Math.round(data.nh4 * 100) / 100;
+      document.getElementById('nh4').innerHTML = Math.round(data.nh4 * 100) / 100;
+      document.getElementById('gas').innerHTML = Math.round(data.gas * 100) / 100;
       document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
       document.getElementById('khoi').innerHTML = Math.round(data.khoi * 100) / 100;
       document.getElementById('khoangcach').innerHTML = Math.round(data.khoangcach * 100) / 100;
