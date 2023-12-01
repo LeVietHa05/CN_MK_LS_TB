@@ -103,7 +103,7 @@
         </div>
         <div class="mt-5">
           <div class="h3">Distance</div>
-          <div>Khoảng cách đã di chuyển được: <span id="khoangcach"></span> cm</div>
+          <div>Khoảng cách đã di chuyển được: <span id="khoangcach"></span> km</div>
         </div>
         <div style="margin: auto;">
           <div id='map' style='width: 400px; height: 300px; margin: auto;'></div>
@@ -147,7 +147,7 @@
       document.getElementById('gas').innerHTML = Math.round(data.gas * 100) / 100;
       document.getElementById('dust').innerHTML = Math.round(data.dust * 100) / 100;
       document.getElementById('khoi').innerHTML = Math.round(data.khoi * 100) / 100;
-      document.getElementById('khoangcach').innerHTML = Math.round(data.khoangcach * 100) / 100;
+      document.getElementById('khoangcach').innerHTML = Math.round(data.khoangcach * 100) / 100 / 100000; //km
 
       let list1 = ["co2", "co", "nh4", "dust", "gas"]
       let list2 = ["CO2", "SO2", "GAS", "Bụi", "NO"]
