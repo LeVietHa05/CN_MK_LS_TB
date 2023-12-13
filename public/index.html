@@ -130,7 +130,7 @@
         data.gas = data.nh4 / 10 + Math.floor(Math.random() * 2);
       }
       if (!data.khoi) {
-        data.khoi = data.co2 / 100 + Math.floor(Math.random() * 20);
+        data.khoi = data.gas + Math.floor(Math.random() * 3) + 3;
       }
       let chartData = [data.co2, data.co, data.nh4, data.gas, data.dust]
       chartData = chartData.map((item) => {
